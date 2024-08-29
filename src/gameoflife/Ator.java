@@ -34,6 +34,14 @@ public class Ator extends Thread{
         this.t = t;
     }
 
+    public long getNivelDeSono() {
+        return nivelDeSono;
+    }
+
+    public void setNivelDeSono(long nivelDeSono) {
+        this.nivelDeSono = nivelDeSono;
+    }
+
     public void sinalParada(){
         this.stopSignal = 1;
     }
@@ -54,7 +62,7 @@ public class Ator extends Thread{
             }
         }
     }
-    public void saveAtor(int idAtor, int nivelDeSono) throws SQLException {
+    public void saveAtor(String idAtor, long nivelDeSono) throws SQLException {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
 
@@ -64,8 +72,8 @@ public class Ator extends Thread{
 
             PreparedStatement pst = coon.prepareStatement(query);
 
-            pst.setInt(1, idAtor);
-            pst.setInt(1, nivelDeSono);
+            pst.setString(1, idAtor);
+            pst.setLong(1, nivelDeSono);
 
             st.execute(query);
 
@@ -73,7 +81,7 @@ public class Ator extends Thread{
         }
     }
 
-    public void printAtor(int idAtor) throws SQLException
+    public void printAtor(String idAtor) throws SQLException
     {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
@@ -83,7 +91,7 @@ public class Ator extends Thread{
             String query = "SELECT * FROM atores where id>?";
 
             PreparedStatement pst = coon.prepareStatement(query);
-            pst.setInt(1, idAtor);
+            pst.setString(1, idAtor);
 
             ResultSet res = pst.executeQuery();
 

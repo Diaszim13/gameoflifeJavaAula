@@ -45,7 +45,7 @@ public class Acao {
         }
     }
 
-    public void printAcao(int idAcao) throws SQLException
+    public void printAcao(String idAcao) throws SQLException
     {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
@@ -55,7 +55,7 @@ public class Acao {
             String query = "SELECT * from where id>?";
             PreparedStatement pst = coon.prepareStatement(query);
 
-            pst.setInt(1, idAcao);
+            pst.setString(1, idAcao);
 
             ResultSet res = pst.executeQuery();
 

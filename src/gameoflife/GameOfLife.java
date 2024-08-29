@@ -1,5 +1,6 @@
 package gameoflife;
 
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class GameOfLife {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws SQLException {
         int tamanho = 15;
         int nAtores = 30;
         
@@ -22,6 +23,7 @@ public class GameOfLife {
         for(int i =0;i<nAtores;i++){
             Ator a = new Ator(t,r.nextInt(5, 300));
             atores.add(a);
+            a.saveAtor(a.getIdAtor(), a.getNivelDeSono());
             a.start();
         }
         // Como temos threads, a entrada continua ativa, basta digitar algo ou clicar enter para finalizar o codigo
