@@ -4,6 +4,8 @@
  */
 package gameoflife;
 
+import javax.swing.plaf.nimbus.State;
+import java.sql.*;
 import java.util.UUID;
 
 /**
@@ -26,4 +28,38 @@ public class Acao {
         this.a.getT().aplicaRegra(this.x, this.y);
         this.a.getT().displayMatrix();
     }
+
+    public void saveAcao() throws SQLException {
+        Connection coon = BDConnection.getConnection();
+        Statement st = coon.createStatement();
+        if(!st.isClosed())
+        {
+            String query = "INSERT INTO acao values ()";
+            st.execute(query);
+
+            coon.close();
+        }
+    }
+
+    public void printAcao(int idAcao) throws SQLException
+    {
+        Connection coon = BDConnection.getConnection();
+        Statement st = coon.createStatement();
+
+        if(!st.isClosed())
+        {
+            String query = "SELECT * from where id>?";
+            PreparedStatement pst = coon.prepareStatement(query);
+
+            pst.setInt(1, idAcao);
+
+            ResultSet res = pst.executeQuery();
+
+            while(res.next())
+            {
+                System.out.println(res.getString("idAcao"));
+            }
+        }
+    }
+
 }
