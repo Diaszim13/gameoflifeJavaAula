@@ -87,13 +87,17 @@ public class Tabuleiro {
         System.out.print("-\n");
     }
 
-    public void saveTabuleiro(int matrix, int matrixSize) throws SQLException {
+    public void saveTabuleiro(int idTabuleiro, int matrixSize) throws SQLException {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
 
         if (!st.isClosed()) {
             Tabuleiro tab = new Tabuleiro(matrixSize);
-            String query = "insert into Tabuleiro values()";
+            String query = "insert into Tabuleiro values(?,?)";
+            PreparedStatement pst = coon.prepareStatement(query);
+
+            pst.setInt(1, idTabuleiro);
+            pst.setInt(2, matrixSize);
             st.execute(query);
 
             coon.close();

@@ -54,13 +54,18 @@ public class Ator extends Thread{
             }
         }
     }
-    public void saveAtor() throws SQLException {
+    public void saveAtor(int idAtor, int nivelDeSono) throws SQLException {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
 
         if(!st.isClosed())
         {
-            String query = "INSERT INTO ator values()";
+            String query = "INSERT INTO ator values(?,?)";
+
+            PreparedStatement pst = coon.prepareStatement(query);
+
+            pst.setInt(1, idAtor);
+            pst.setInt(1, nivelDeSono);
 
             st.execute(query);
 

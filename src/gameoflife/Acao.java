@@ -29,12 +29,16 @@ public class Acao {
         this.a.getT().displayMatrix();
     }
 
-    public void saveAcao() throws SQLException {
+    public void saveAcao(int idAcao, int x, int y) throws SQLException {
         Connection coon = BDConnection.getConnection();
         Statement st = coon.createStatement();
         if(!st.isClosed())
         {
             String query = "INSERT INTO acao values ()";
+            PreparedStatement pst = coon.prepareStatement(query);
+            pst.setInt(1, idAcao);
+            pst.setInt(2, x);
+            pst.setInt(3, y);
             st.execute(query);
 
             coon.close();
