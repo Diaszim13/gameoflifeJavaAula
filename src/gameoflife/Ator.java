@@ -4,6 +4,7 @@
  */
 package gameoflife;
 
+import java.sql.*;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,42 @@ public class Ator extends Thread{
             } catch(InterruptedException ex) {
                 Logger.getLogger(Ator.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    public void saveAtor() throws SQLException {
+        Connection coon = BDConnection.getConnection();
+        Statement st = coon.createStatement();
+
+        if(!st.isClosed())
+        {
+            String query = "INSERT INTO ator values()";
+
+            st.execute(query);
+
+            coon.close();
+        }
+    }
+
+    public void printAtor(int idAtor) throws SQLException
+    {
+        Connection coon = BDConnection.getConnection();
+        Statement st = coon.createStatement();
+
+        if(!st.isClosed())
+        {
+            String query = "SELECT * FROM atores where id>?";
+
+            PreparedStatement pst = coon.prepareStatement(query);
+            pst.setInt(1, idAtor);
+
+            ResultSet res = pst.executeQuery();
+
+            while(res.next())
+            {
+                System.out.println(res);
+            }
+            coon.close();
+
         }
     }
 }
